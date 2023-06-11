@@ -25,6 +25,7 @@ services:
     depends_on:
       - mysqldb
     build: ./backend
+    container_name: spring_c
     restart: on-failure
     env_file: ./.env
     ports:
@@ -45,6 +46,7 @@ services:
   mysqldb:
     image: mysql:8.0.33
     restart: unless-stopped
+    container_name: ist_mysql_c
     env_file:
       - ./.env
     environment:
