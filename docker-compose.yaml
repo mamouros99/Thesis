@@ -5,6 +5,7 @@ services:
     depends_on:
       - spring-backend
     build: ./desktop-app
+    image: mamouros99/desktop
     container_name: dektop_c
     ports:
       - '8081:80'
@@ -15,6 +16,7 @@ services:
     depends_on:
       - spring-backend
     build: "./mobile-app"
+    image: mamouros99/mobile
     container_name: mobile_c
     ports:
       - '8080:80'
@@ -25,6 +27,7 @@ services:
     depends_on:
       - mysqldb
     build: ./backend
+    image: mamouros99/backend
     container_name: spring_c
     restart: on-failure
     env_file: ./.env
