@@ -4,6 +4,7 @@ services:
   frontend-desktop:
     depends_on:
       - spring-backend
+      - mysqldb
     build: ./desktop-app
     image: mamouros99/desktop
     container_name: dektop_c
@@ -15,6 +16,8 @@ services:
   frontend-mobile:
     depends_on:
       - spring-backend
+      - mysqldb
+
     build: "./mobile-app"
     image: mamouros99/mobile
     container_name: mobile_c
@@ -25,7 +28,8 @@ services:
 
   spring-backend:
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
     build: ./backend
     image: mamouros99/backend
     container_name: spring_c
@@ -57,8 +61,14 @@ services:
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    healthcheck:
+          test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD
+          interval: 2s
+          timeout: 60s
+          retries: 30
     volumes:
       - db:/var/lib/mysql
+    
 volumes:
   db:
 
