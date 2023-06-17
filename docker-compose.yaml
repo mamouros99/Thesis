@@ -44,7 +44,9 @@ services:
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.hibernate.ddl-auto" : "update",
         "server.port" : $SPRING_DOCKER_PORT,
-        "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver"}'
+        "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver"},
+        "my.ip" : "$IP"
+        "fenix" : "fenixedu.properties"'
     volumes:
       - .m2:/root/.m2
     stdin_open: true
