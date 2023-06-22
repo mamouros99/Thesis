@@ -5,26 +5,36 @@ services:
     depends_on:
       - spring-backend
       - mysqldb
-    build: ./desktop-app
+    build: 
+      context: ./desktop-app
+      args:
+        - VUE_APP_ENV_FILE=$PROFILE
     image: mamouros99/desktop
-    container_name: dektop_c
+    container_name: desktop_c
     ports:
       - '8081:80'
     volumes:
       - ./lh-nginx.conf:/etc/nginx/nginx.conf  
+      - ./data/certs:/etc/certs
+
 
   frontend-mobile:
     depends_on:
       - spring-backend
       - mysqldb
 
-    build: "./mobile-app"
+    build:
+      context: "./mobile-app"
+      args:
+        - VUE_APP_ENV_FILE=$PROFILE
     image: mamouros99/mobile
     container_name: mobile_c
     ports:
       - '8080:80'
+
     volumes:
       - ./lh-nginx.conf:/etc/nginx/nginx.conf
+      - ./data/certs:/etc/certs
 
   spring-backend:
     depends_on:
@@ -44,9 +54,8 @@ services:
         "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
         "spring.jpa.hibernate.ddl-auto" : "update",
         "server.port" : $SPRING_DOCKER_PORT,
-        "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver"},
-        "my.ip" : "$IP"
-        "fenix" : "fenixedu.properties"'
+        "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
+        "spring.profiles.active" : "$PROFILE"}'
     volumes:
       - .m2:/root/.m2
     stdin_open: true
