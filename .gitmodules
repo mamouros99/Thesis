@@ -3,7 +3,7 @@
 	url = https://github.com/mamouros99/backend-thesis
 [submodule "mobile-app"]
 	path = mobile-app
-	url = https://github.com/mamouros99/mobile-app
+	url = https://github.com/ mamouros99/EcoTecnico
 [submodule "desktop-app"]
 	path = desktop-app
 	url = https://github.com/mamouros99/desktop-app
